@@ -1,6 +1,5 @@
 import getpass
 
-# Данные пользователей
 users = [
     {
         'username': 'john_doe',
@@ -18,7 +17,6 @@ users = [
     }
 ]
 
-# Данные услуг
 services = [
     {'name': 'Фитнес-тренировка', 'price': 100, 'rating': 4.5},
     {'name': 'Йога', 'price': 80, 'rating': 4.0},
@@ -29,9 +27,9 @@ services = [
 def sort_services(criterion):
     reverse_order = False
     if criterion in ['price']:
-        reverse_order = False  # Сортировка по возрастанию по умолчанию
+        reverse_order = False  
     elif criterion == 'rating':
-        reverse_order = True  # Сортировка по убыванию по умолчанию
+        reverse_order = True  
 
     sorted_services = sorted(services, key=lambda x: x[criterion], reverse=reverse_order)
     return sorted_services
@@ -94,9 +92,9 @@ def view_services():
         if search_choice == 'да':
             query = input("Введите название услуги для поиска: ")
             sorted_services = search_services(query)
-            break  # Выходим из цикла после успешного ввода
+            break  
         elif search_choice == 'нет':
-            break  # Выходим из цикла если пользователь не хочет проводить поиск
+            break 
         else:
             print("Пожалуйста, введите 'да' или 'нет'.")
 
@@ -111,7 +109,7 @@ def purchase_service(user):
     service_name = input("Введите название услуги для покупки: ")
     for service in services:
         if service['name'].lower() == service_name.lower():
-            user['purchase_history'].append(service)  # Запоминаем историю покупок
+            user['purchase_history'].append(service)  
             print(f"Вы успешно приобрели услугу: {service['name']}")
             return
     print("Услуга не найдена.")
@@ -133,7 +131,6 @@ def update_profile(user):
         user['password'] = new_password
     print("Профиль обновлен!")
 
-# Функции для администратора
 def admin_menu():
     while True:
         print("\nДобро пожаловать в систему управления фитнес-клубом!")
@@ -180,7 +177,6 @@ def create_user():
     password = getpass.getpass("Введите пароль для нового пользователя: ")
     subscription_type = input("Введите тип подписки (например, 'Стандарт' или 'Премиум'): ")
 
-    # Проверка на уникальность логина
     if any(user['username'] == username for user in users):
         print("Пользователь с таким логином уже существует. Попробуйте другой логин.")
         return
@@ -188,14 +184,13 @@ def create_user():
     new_user = {
         'username': username,
         'password': password,
-        'role': 'user',  # Все новые пользователи по умолчанию становятся пользователями
+        'role': 'user',  
         'subscription_type': subscription_type,
         'purchase_history': []
     }
     users.append(new_user)
     print("Новый пользователь успешно создан.")
 
-# Основной код
 def main():
     while True:
         print("\nДобро пожаловать в фитнес-клуб!")
